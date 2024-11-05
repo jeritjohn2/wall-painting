@@ -127,11 +127,11 @@ export default function ViewContractor() {
               <div
                 key={sessionIndex}
                 className={`border border-gray-600 rounded-lg p-6 mb-4 ${
-                  session.sessionData.status === 'APPROVED' ? 'bg-green-700' : 'bg-red-700'
+                  session.sessionData.modelStatus === 'APPROVED' ? 'bg-green-700' : 'bg-red-700'
                 }`}
               >
                 <h2 className="text-lg font-semibold text-gray-300 mb-3">
-                  Wall ID: {session.sessionData.wallId} - Status: {session.sessionData.status}
+                  Wall ID: {session.sessionData.wallId} - Status: {session.sessionData.modelStatus}
                 </h2>
                 {nearestLocationData && (
                   <div className="text-gray-300 mb-4">
