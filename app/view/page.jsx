@@ -8,6 +8,9 @@ import Sidebar from '../sidebar/page';
 import locationsData from '../location.json';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+// import firebase from 'firebase/compat/app';
+import { firebase } from 'firebase/app'; // Import Firebase
+
 
 const locations = locationsData.locations;
 
@@ -154,16 +157,18 @@ export default function ViewContractor() {
     );
   }
 
+
   return (
     <div className="min-h-screen bg-gray-900 flex">
       <Sidebar />
       <div className="flex flex-col items-start p-5 w-full ml-64">
         <Navbar />
+
         <button
           onClick={() => router.push('/manager')}
           className="bg-blue-600 text-white px-4 py-2 mt-[15vh] rounded-md mb-1 hover:bg-blue-700"
         >
-          Go Back
+          Back
         </button>
         <h1 className="text-gray-300 text-2xl font-semibold mb-5 mt-11">
           Images taken by {contractorEmail}
@@ -174,14 +179,18 @@ export default function ViewContractor() {
               <div
                 key={sessionIndex}
                 className={`border border-gray-600 rounded-lg p-6 mb-4 ${
+                  session.sessionData.status === 'PENDING' ? 'bg-orange-600':null
+                }  ${
                   session.sessionData.status === 'APPROVED' ? 'bg-green-700' : 'bg-red-700'
-                }`}
+                } `}
               >
-                <h2 className="text-lg font-semibold text-gray-300 mb-3">
-                  Wall ID: {session.sessionData.wallId} - Status: {session.sessionData.status}
+                {/* */}
+                <h2 className={`text-lg font-semibold text-gray-300 mb-3`}>
+                  Wall ID: {session.sessionData.wallId} - Final Status: {session.sessionData.status}
                 </h2>
 
-                <p className="text-gray-300">Model Status: {session.sessionData.modelStatus || 'N/A'}</p>
+                <p className={`text-gray-300 font-bold `}>Model Status : {session.sessionData.modelStatus || 'N/A'}
+                  </p>
                 <p className="text-gray-300">Latitude: {session.sessionData.location?._lat || 'N/A'}</p>
                 <p className="text-gray-300">Longitude: {session.sessionData.location?._long || 'N/A'}</p>
 
@@ -228,16 +237,16 @@ export default function ViewContractor() {
           )}
         </div>
 
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <button
             onClick={() => setShowDeletePopup(true)}
             className="px-6 py-2 bg-red-600 rounded-md text-white hover:bg-red-700"
           >
             Delete Contractor
           </button>
-        </div>
+        </div> */}
 
-        {showDeletePopup && (
+        {/* {showDeletePopup && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-gray-800 p-6 rounded-lg">
               <h2 className="text-gray-300 mb-4">Are you sure you want to delete this contractor?</h2>
@@ -257,7 +266,7 @@ export default function ViewContractor() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
